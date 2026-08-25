@@ -14,6 +14,8 @@ import {
 } from './types/graph';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export const App: React.FC = () => {
   const [health, setHealth] = useState<DatabaseHealth | null>(null);
   const [graphData, setGraphData] = useState<GraphData | null>(null);
@@ -29,11 +31,11 @@ export const App: React.FC = () => {
   // Fetch Database Health
   const checkHealth = async () => {
     try {
-      const res = await fetch('/api/health');
+      const res = await fetch(`${API_BASE}/api/health`);
       const data = await res.json();
       setHealth(data);
     } catch {
-      setHealth({ connected: false, message: 'Could not connect to backend server at http://localhost:5000' });
+      setHealth({ connected: false, message: 'Could not connect to backend server' });
     }
   };
 
@@ -43,8 +45,8 @@ export const App: React.FC = () => {
     await checkHealth();
     try {
       const [gRes, sRes] = await Promise.all([
-        fetch('/api/graph'),
-        fetch('/api/spof')
+        fetch(`${API_BASE}/api/graph`),
+        fetch(`${API_BASE}/api/spof`)
       ]);
 
       if (gRes.ok) {
@@ -71,7 +73,7 @@ export const App: React.FC = () => {
     setSelectedEntityId(id);
     setLoading(true);
     try {
-      const res = await fetch(`/api/blast-radius/${id}`);
+      const res = await fetch(`${API_BASE}/api/blast-radius/${id}`);
       if (res.ok) {
         const data: BlastRadiusResult = await res.json();
         setBlastRadius(data);
@@ -88,7 +90,7 @@ export const App: React.FC = () => {
   const handleFindAlternatives = async (componentId: string) => {
     setLoadingAlt(true);
     try {
-      const res = await fetch(`/api/alternatives/${componentId}`);
+      const res = await fetch(`${API_BASE}/api/alternatives/${componentId}`);
       if (res.ok) {
         const data: AlternativeResult = await res.json();
         setSelectedComponentAlt(data);
@@ -105,7 +107,7 @@ export const App: React.FC = () => {
   const handleSeed = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/seed', { method: 'POST' });
+      const res = await fetch(`${API_BASE}/api/seed`, { method: 'POST' });
       if (res.ok) {
         await loadInitialData();
       }
