@@ -1,6 +1,7 @@
 # CognoDB — Supply Chain Risk & Downstream Blast Radius Navigator
 
 > Built for the **Wexa AI Software Engineer (Full-Stack / Web)** Take-Home Assessment.  
+> **Live Demo**: [https://cognodb-supplychain-graph.vercel.app](https://cognodb-supplychain-graph.vercel.app)  
 > Powered by **CognoDB Cloud** (openCypher graph database over Neo4j Bolt 5.4 protocol) with a **React + TypeScript + Vite + Tailwind CSS** frontend and **Node.js + Express + TypeScript** backend.
 
 ---
