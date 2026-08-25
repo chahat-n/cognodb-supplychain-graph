@@ -14,7 +14,7 @@ import {
 } from './types/graph';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = (import.meta as any).env?.VITE_API_URL || '';
 
 export const App: React.FC = () => {
   const [health, setHealth] = useState<DatabaseHealth | null>(null);

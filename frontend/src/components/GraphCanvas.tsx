@@ -134,7 +134,7 @@ export const GraphCanvas: React.FC<GraphCanvasProps> = ({
       }
     };
 
-    const network = new Network(containerRef.current, data, options);
+    const network = new Network(containerRef.current, data, options as any);
     networkRef.current = network;
 
     // Handle node selection
